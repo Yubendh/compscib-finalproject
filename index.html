@@ -65,23 +65,32 @@
             </form>
         </aside>
 
-        <!-- Right Side: Output -->
-        <main class="results-area">
-            
-            <div class="results-header">
-                <h2>Recommendation</h2>
-                <div class="sort-controls">
-                    <label style="margin-right: 10px; color: var(--text-gray);" for="sort-order">Sort by:</label>
-                    <select id="sort-order">
-                        <option value="rating">Highest Rated</option>
-                        <option value="newest">Newest First</option>
-                        <option value="oldest">Oldest First</option>
-                    </select>
-                </div>
-            </div>
-            <p id="status-message" style="color: var(--text-gray);" hidden></p>
-            <section id="results"></section>
-        </main>
+<main class="results-area">
+    <div class="results-header">
+        <h2>Recommendation</h2>
+        <div class="sort-controls">
+            <label style="margin-right: 10px; color: var(--text-gray);" for="sort-order">Sort by:</label>
+            <select id="sort-order">
+                <option value="rating">Highest Rated</option>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Status message for "Found X matches" -->
+    <p id="status-message" class="status-text" hidden></p>
+
+    <!-- The Container for results -->
+    <section id="results">
+        <!-- Default Empty State -->
+        <div class="empty-placeholder">
+            <i class="fas fa-film"></i>
+            <h3>Ready to Watch?</h3>
+            <p>Select your preferences on the left and hit "Find Movie" to start.</p>
+        </div>
+    </section>
+</main>
     </div>
 
     <footer>
