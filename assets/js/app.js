@@ -184,3 +184,30 @@ sortSelect.addEventListener('change', () => filtersForm.requestSubmit());
 
 // Note: Removed the auto-load on DOMContentLoaded to save API calls, 
 // or you can leave it but ensure a default keyword is set.
+
+/* --- MOBILE FILTER TOGGLE LOGIC --- */
+const filterToggleBtn = document.getElementById('filter-toggle');
+const filtersSidebar = document.getElementById('filters-sidebar');
+
+if (filterToggleBtn) {
+    filterToggleBtn.addEventListener('click', () => {
+        // Toggle logic
+        if (filtersSidebar.style.display === 'block') {
+            filtersSidebar.style.display = 'none';
+            filterToggleBtn.innerHTML = '<i class="fas fa-sliders-h"></i> Show Filters';
+        } else {
+            filtersSidebar.style.display = 'block';
+            filterToggleBtn.innerHTML = '<i class="fas fa-times"></i> Close Filters';
+        }
+    });
+}
+
+// Ensure filters reset when switching back to desktop view
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 850) {
+        filtersSidebar.style.display = 'block';
+    } else {
+        filtersSidebar.style.display = 'none';
+        if(filterToggleBtn) filterToggleBtn.innerHTML = '<i class="fas fa-sliders-h"></i> Show Filters';
+    }
+});
