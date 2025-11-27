@@ -11,7 +11,7 @@ from flask_cors import CORS
 load_dotenv()
 
 OMDB_URL = os.getenv("OMDB_API_URL", "https://www.omdbapi.com/")
-API_KEY = os.getenv("OMDB_API_KEY")
+API_KEY = os.getenv("17c09ca2")
 
 app = Flask(__name__)
 CORS(app)
