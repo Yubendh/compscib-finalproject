@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support | Wat2Watch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Wat2Watch<span>|</span></a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" class="active">Support</a>
+        </nav>
+        <div class="user-menu"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></div>
+    </header>
+
+    <div class="page-container">
+        <h1 class="page-title">Contact Support</h1>
+        <p style="color:#aaa; margin-bottom:2rem;">Have a feature request or found a bug? Let us know.</p>
+
+        <form id="contact-form" onsubmit="event.preventDefault(); alert('Message sent! We will reply shortly.');">
+            <div class="filter-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="John Doe" required>
+            </div>
+            
+            <div class="filter-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="john@example.com" required>
+            </div>
+            
+            <div class="filter-group">
+                <label>Message</label>
+                <textarea rows="5" placeholder="Describe your issue..." style="resize:vertical;" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+    </div>
+
+    <!-- Login Modal (Hidden but functional if clicked in header) -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Welcome Back</h2>
+            <form id="login-form">
+                <div class="filter-group"><label>Email</label><input type="email" id="login-email" required></div>
+                <div class="filter-group"><label>Password</label><input type="password" id="login-password" required></div>
+                <button type="submit" class="btn-submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2025 Wat2Watch. All rights reserved.</p></footer>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>

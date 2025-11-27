@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wat2Watch - Find Your Next Movie</title>
+    <title>Wat2Watch | Find Movies</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -11,19 +11,28 @@
 <body>
 
     <header>
-        <div class="logo">Wat2Watch | <span> </span> Movie Recommendations</div>
+        <a href="index.html" class="logo">Wat2Watch<span>|</span></a>
+        
+        <!-- Navigation Links -->
+        <nav class="main-nav">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Support</a>
+        </nav>
+
         <div class="user-menu">
-            <i class="fas fa-user-circle" style="font-size: 1.5rem; cursor: pointer;"></i>
+            <i class="fas fa-user-circle" style="font-size: 1.5rem;"></i>
         </div>
     </header>
 
     <div class="container">
+        <!-- ... (Keep your existing Filter Button, Sidebar, and Main content exactly the same) ... -->
+        
         <!-- Mobile Toggle Button -->
         <button id="filter-toggle" class="mobile-filter-btn">
             <i class="fas fa-sliders-h"></i> Show Filters
         </button>
 
-        <!-- Added ID here -->
         <aside class="filters" id="filters-sidebar">
             <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-sliders-h"></i> Preferences</h3>
             <form id="filters-form">
@@ -31,7 +40,6 @@
                     <label for="keywords">Keywords / Title</label>
                     <input id="keywords" type="text" placeholder="e.g. Space, Love, Hero...">
                 </div>
-
                 <div class="filter-group">
                     <label for="genre">Genre</label>
                     <select id="genre">
@@ -43,85 +51,69 @@
                         <option value="horror">Horror</option>
                     </select>
                 </div>
-
                 <div class="filter-group">
                     <label>Release Year</label>
                     <div class="row-inputs">
-                        <input id="year-from" type="number" placeholder="From (e.g. 1990)">
-                        <input id="year-to" type="number" placeholder="To (e.g. 2024)">
+                        <input id="year-from" type="number" placeholder="From">
+                        <input id="year-to" type="number" placeholder="To">
                     </div>
                 </div>
-
                 <div class="filter-group">
-                    <label for="min-rating">Minimum Rating (IMDb)</label>
+                    <label for="min-rating">Min Rating</label>
                     <select id="min-rating">
-                        <option value="">Any Rating</option>
-                        <option value="5">5+ Stars</option>
-                        <option value="6">6+ Stars</option>
-                        <option value="7">7+ Stars</option>
-                        <option value="8">8+ Stars</option>
-                        <option value="9">9+ Stars</option>
+                        <option value="">Any</option>
+                        <option value="6">6+</option>
+                        <option value="7">7+</option>
+                        <option value="8">8+</option>
                     </select>
                 </div>
-
-                <button id="submit-btn" class="btn-submit" type="submit">
-                    <i class="fas fa-magic"></i> Find Movie
-                </button>
+                <button id="submit-btn" class="btn-submit" type="submit">Find Movie</button>
             </form>
         </aside>
 
-<main class="results-area">
-    <div class="results-header">
-        <h2>Recommendation</h2>
-        <div class="sort-controls">
-            <label style="margin-right: 10px; color: var(--text-gray);" for="sort-order">Sort by:</label>
-            <select id="sort-order">
-                <option value="rating">Highest Rated</option>
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-            </select>
-        </div>
+        <main class="results-area">
+            <div class="results-header">
+                <h2>Recommendation</h2>
+                <div class="sort-controls">
+                    <label style="margin-right: 10px; color: var(--text-gray);" for="sort-order">Sort by:</label>
+                    <select id="sort-order">
+                        <option value="rating">Highest Rated</option>
+                        <option value="newest">Newest First</option>
+                    </select>
+                </div>
+            </div>
+            <p id="status-message" class="status-text" hidden></p>
+            <section id="results">
+                <div class="empty-placeholder">
+                    <i class="fas fa-film"></i>
+                    <h3>Ready to Watch?</h3>
+                    <p>Select your preferences on the left and hit "Find Movie" to start.</p>
+                </div>
+            </section>
+        </main> 
     </div>
 
-    <!-- Status message for "Found X matches" -->
-    <p id="status-message" class="status-text" hidden></p>
-
-    <!-- The Container for results -->
-    <section id="results">
-        <!-- Default Empty State -->
-        <div class="empty-placeholder">
-            <i class="fas fa-film"></i>
-            <h3>Ready to Watch?</h3>
-            <p>Select your preferences on the left and hit "Find Movie" to start.</p>
-        </div>
-    </section>
-</main> 
-    </div>
-    
-    <!-- LOGIN MODAL -->
+    <!-- Login Modal (Same as before) -->
     <div id="login-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2>Welcome Back</h2>
             <form id="login-form">
                 <div class="filter-group">
-                    <label>Email Address</label>
-                    <input type="email" id="login-email" placeholder="name@example.com" required>
+                    <label>Email</label>
+                    <input type="email" id="login-email" required>
                 </div>
                 <div class="filter-group">
                     <label>Password</label>
-                    <input type="password" id="login-password" placeholder="Enter password" required>
+                    <input type="password" id="login-password" required>
                 </div>
                 <button type="submit" class="btn-submit">Sign In</button>
-                <p style="margin-top:1rem; font-size:0.8rem; color:#888; text-align:center;">
-                    (This is a demo. Any password works.)
-                </p>
             </form>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2023 CineMatch Recommendations. Design Mockup.</p>
+        <p>&copy; 2025 Wat2Watch. All rights reserved.</p>
     </footer>
     <script src="assets/js/app.js" defer></script>
 </body>
