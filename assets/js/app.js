@@ -211,3 +211,78 @@ window.addEventListener('resize', () => {
         if(filterToggleBtn) filterToggleBtn.innerHTML = '<i class="fas fa-sliders-h"></i> Show Filters';
     }
 });
+
+/* --- LOGIN MOCKUP LOGIC --- */
+
+const loginModal = document.getElementById('login-modal');
+const userMenuBtn = document.querySelector('.user-menu'); // The icon in header
+const closeModalBtn = document.querySelector('.close-modal');
+const loginForm = document.getElementById('login-form');
+const userIcon = userMenuBtn.querySelector('i');
+
+// Create a span for the username if it doesn't exist
+let userNameSpan = document.createElement('span');
+userNameSpan.className = 'user-name';
+userMenuBtn.appendChild(userNameSpan);
+
+// 1. Check if user is already "logged in" from previous session
+const savedUser = localStorage.getItem('wat2watch_user');
+if (savedUser) {
+    updateUIForLogin(savedUser);
+}
+
+// 2. Open Modal Function
+userMenuBtn.addEventListener('click', () => {
+    // If already logged in, clicking the icon asks to Logout
+    if (localStorage.getItem('wat2watch_user')) {
+        const doLogout = confirm("Do you want to log out?");
+        if (doLogout) {
+            localStorage.removeItem('wat2watch_user');
+            window.location.reload();
+        }
+    } else {
+        // If not logged in, show modal
+        loginModal.style.display = 'flex';
+    }
+});
+
+// 3. Close Modal Function
+closeModalBtn.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+});
+
+// Close if clicking outside the box
+window.onclick = (event) => {
+    if (event.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+};
+
+// 4. Handle Login Submit
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('login-email').value;
+    // Note: Since this is static, we accept ANY password.
+    // In a real app, you would send this to a python backend to verify.
+    
+    // Save to browser memory
+    localStorage.setItem('wat2watch_user', email);
+    
+    // Update UI
+    updateUIForLogin(email);
+    
+    // Close Modal
+    loginModal.style.display = 'none';
+    alert(`Welcome back, ${email}!`);
+});
+
+function updateUIForLogin(email) {
+    // Change Icon Color
+    userIcon.style.color = '#E50914'; // Red (Logged in)
+    
+    // Show Name (Split email to get name before @)
+    const shortName = email.split('@')[0];
+    userNameSpan.textContent = shortName;
+    userNameSpan.style.display = 'block';
+}
