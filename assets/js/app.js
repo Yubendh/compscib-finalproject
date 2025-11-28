@@ -2,7 +2,7 @@
 const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
 // PASTE YOUR RENDER URL BELOW (Make sure there is NO slash '/' at the end)
-const API_BASE = isLocal ? 'http://127.0.0.1:5000' : 'https://wat2watch-api.onrender.com';
+const API_BASE = isLocal ? 'https://wat2watch-api.onrender.com' : 'https://wat2watch-api.onrender.com';
 
 /* =========================================
    PART 1: SEARCH PAGE LOGIC
