@@ -23,7 +23,7 @@ if (filtersForm) {
     // Helper: Collect inputs from the form
     const getFilters = () => ({
         keyword: document.getElementById('keywords').value.trim(),
-        genre: document.getElementById('genre').value, // Backend handles lowercase
+        genre: document.getElementById('genre').value, 
         minYear: document.getElementById('year-from').value,
         maxYear: document.getElementById('year-to').value,
         minRating: document.getElementById('min-rating').value,
@@ -136,6 +136,11 @@ if (filtersForm) {
             url.searchParams.append('q', searchTerm);
             if (filters.genre) url.searchParams.append('genre', filters.genre);
             if (filters.minRating) url.searchParams.append('minRating', filters.minRating);
+            
+            // --- FIXED: Appending Year Filters ---
+            if (filters.minYear) url.searchParams.append('minYear', filters.minYear);
+            if (filters.maxYear) url.searchParams.append('maxYear', filters.maxYear);
+            
             if (filters.sort) url.searchParams.append('sort', filters.sort);
 
             // Fetch from backend
