@@ -216,23 +216,34 @@ if (filtersForm) {
 const watchlistContainer = document.getElementById('watchlist-results');
 
 if (watchlistContainer) {
+    // 1. Load movies immediately on page load
     const savedMovies = JSON.parse(localStorage.getItem('wat2watch_list')) || [];
     const clearBtn = document.getElementById('clear-list');
 
     if (savedMovies.length > 0) {
-        watchlistContainer.innerHTML = ''; // Remove empty state placeholder
+        watchlistContainer.innerHTML = ''; // Remove "Empty" placeholder
         
         savedMovies.forEach(movie => {
-            // Now createMovieCard is guaranteed to exist!
+            // Add the movie card to the UI
             watchlistContainer.appendChild(createMovieCard(movie, true)); 
         });
     }
 
+    // 2. Fixed Clear All Logic
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-            if(savedMovies.length === 0) return;
-            if(confirm("Clear your entire list?")) {
-                localStorage.removeItem('wat2watch_list');
+            // Check the storage DIRECTLY right now (don't trust the variable from page load)
+            const currentList = JSON.parse(localStorage.getItem('wat2watch_list')) || [];
+            
+            if (currentList.length === 0) {
+                alert("Your list is already empty!");
+                return;
+            }
+
+            if(confirm("Are you sure you want to clear your entire list?")) {
+                // Force it to be an empty array
+                localStorage.setItem('wat2watch_list', '[]');
+                // Reload the page to show the empty state
                 location.reload();
             }
         });
