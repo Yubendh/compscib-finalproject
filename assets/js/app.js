@@ -1,7 +1,7 @@
 // --- CONFIGURATION ---
 // If on localhost, talk to local Python. If online, talk to Render (you will update this URL later).
 const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-const API_BASE = isLocal ? 'http://127.0.0.1:5000' : ''; 
+const API_BASE = 'http://127.0.0.1:5000';
 
 /* =========================================
    PART 1: SEARCH PAGE LOGIC
