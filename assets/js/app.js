@@ -1,7 +1,8 @@
 // --- CONFIGURATION ---
-// If on localhost, talk to local Python. If online, talk to Render (you will update this URL later).
 const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-const API_BASE = 'http://127.0.0.1:5000';
+
+// PASTE YOUR RENDER URL BELOW (Make sure there is NO slash '/' at the end)
+const API_BASE = isLocal ? 'http://127.0.0.1:5000' : 'https://wat2watch-api.onrender.com';
 
 /* =========================================
    PART 1: SEARCH PAGE LOGIC
