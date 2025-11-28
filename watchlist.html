@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watchlist | Wat2Watch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Wat2Watch<span>|</span></a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="watchlist.html" class="active">My List</a>
+            <a href="about.html">About</a>
+        </nav>
+        <div class="user-menu"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></div>
+    </header>
+
+    <div class="page-container" style="max-width: 1200px;">
+        <div class="results-header">
+            <h1 class="page-title">My Watchlist</h1>
+            <button id="clear-list" class="btn-outline" style="font-size:0.8rem;">Clear All</button>
+        </div>
+        
+        <!-- Saved movies will appear here -->
+        <section id="watchlist-results" class="results-area">
+            <div class="empty-placeholder">
+                <i class="far fa-heart"></i>
+                <h3>Your list is empty</h3>
+                <p>Go to the Home page and save some movies!</p>
+            </div>
+        </section>
+    </div>
+
+    <footer><p>&copy; 2025 Wat2Watch. All rights reserved.</p></footer>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
