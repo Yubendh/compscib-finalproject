@@ -1,16 +1,13 @@
-// --- CONFIGURATION ---
+
 const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 const API_BASE = isLocal ? 'https://wat2watch-api.onrender.com' : 'https://wat2watch-api.onrender.com';
 
-/* =========================================
-   GLOBAL HELPER: Create Movie Card
-   (Must be at the top so ALL pages can use it)
-   ========================================= */
+/* GLOBAL HELPER: Create Movie Card */
 const createMovieCard = (movie, isWatchlist = false) => {
     const card = document.createElement('article');
     card.className = 'movie-card';
 
-    // 1. Poster
+    //Poster
     const posterWrapper = document.createElement('div');
     posterWrapper.className = 'poster-wrapper';
     const posterDiv = document.createElement('div');
@@ -27,29 +24,28 @@ const createMovieCard = (movie, isWatchlist = false) => {
     }
     posterWrapper.appendChild(posterDiv);
 
-    // 2. Info Section
+    //Info Section
     const info = document.createElement('div');
     info.className = 'movie-info';
 
-    // Meta Data
+    //Meta Data
     const meta = document.createElement('div');
     meta.className = 'movie-meta';
     const ratingVal = movie.imdbRating || 'N/A';
-    // Handle Year (could be number or string depending on where it came from)
+    //Handle Year
     let yearDisplay = '—';
     if (movie.Year) {
-        // If it comes from OMDb it might be "2014", if from Python it might be 2014.0
         yearDisplay = String(movie.Year).split('.')[0]; 
     }
     
     meta.innerHTML = `<span class="rating-badge"><i class="fas fa-star"></i> ${ratingVal}</span><span>${yearDisplay}</span>`;
 
-    // Title
+    //Title
     const title = document.createElement('h1');
     title.className = 'movie-title';
     title.textContent = movie.Title;
 
-    // Genres (Only show on Search page usually, or if data exists)
+    //Genres
     const tags = document.createElement('div');
     tags.className = 'genre-tags';
     if(movie.Genre) {
@@ -61,14 +57,13 @@ const createMovieCard = (movie, isWatchlist = false) => {
         });
     }
 
-    // Plot
+    //Plot
     const plot = document.createElement('p');
     plot.className = 'movie-plot';
-    // Truncate plot for watchlist to save space
     const plotText = movie.Plot && movie.Plot !== 'N/A' ? movie.Plot : 'No plot available.';
     plot.textContent = isWatchlist ? plotText.substring(0, 100) + '...' : plotText;
 
-    // Actions
+    //Actions
     const actions = document.createElement('div');
     actions.className = 'action-buttons';
     
@@ -82,22 +77,20 @@ const createMovieCard = (movie, isWatchlist = false) => {
     saveBtn.className = 'btn-outline';
     
     if (isWatchlist) {
-        // --- REMOVE BUTTON (For Watchlist Page) ---
         saveBtn.innerHTML = '<i class="fas fa-trash"></i> Remove';
-        saveBtn.style.borderColor = '#E50914'; // Red border
-        saveBtn.style.color = '#E50914';       // Red text
+        saveBtn.style.borderColor = '#E50914'; 
+        saveBtn.style.color = '#E50914';      
         saveBtn.onmouseover = () => { saveBtn.style.background = '#E50914'; saveBtn.style.color = 'white'; };
         saveBtn.onmouseout = () => { saveBtn.style.background = 'transparent'; saveBtn.style.color = '#E50914'; };
         
         saveBtn.onclick = () => {
             removeFromWatchlist(movie.imdbID);
-            card.remove(); // Remove from UI immediately
-            // If list becomes empty, reload to show empty state
+            card.remove();
             const remaining = JSON.parse(localStorage.getItem('wat2watch_list')) || [];
             if (remaining.length === 0) location.reload();
         };
     } else {
-        // --- SAVE BUTTON (For Search Page) ---
+        // SAVE BUTTON (for ssearch page)
         saveBtn.innerHTML = '<i class="far fa-heart"></i> Save';
         saveBtn.onclick = () => addToWatchlist(movie);
     }
@@ -109,12 +102,9 @@ const createMovieCard = (movie, isWatchlist = false) => {
     return card;
 };
 
-/* =========================================
-   PART 2: LOCAL STORAGE HELPERS
-   ========================================= */
+/*PART 2: LOCAL STORAGE HELPERS*/
 function addToWatchlist(movie) {
     let list = JSON.parse(localStorage.getItem('wat2watch_list')) || [];
-    // Check for duplicates
     if (!list.some(m => m.imdbID === movie.imdbID)) {
         list.push(movie);
         localStorage.setItem('wat2watch_list', JSON.stringify(list));
@@ -130,9 +120,7 @@ function removeFromWatchlist(id) {
     localStorage.setItem('wat2watch_list', JSON.stringify(list));
 }
 
-/* =========================================
-   PART 3: SEARCH PAGE LOGIC (index.html)
-   ========================================= */
+/* PART 3: SEARCH PAGE LOGIC (index.html)*/
 const filtersForm = document.getElementById('filters-form');
 
 if (filtersForm) {
@@ -210,18 +198,16 @@ if (filtersForm) {
     }
 }
 
-/* =========================================
-   PART 4: WATCHLIST PAGE LOGIC (watchlist.html)
-   ========================================= */
+/* PART 4: WATCHLIST PAGE LOGIC (watchlist.html)*/
 const watchlistContainer = document.getElementById('watchlist-results');
 
 if (watchlistContainer) {
-    // 1. Load movies immediately on page load
+    // Load movies immediately on page load
     const savedMovies = JSON.parse(localStorage.getItem('wat2watch_list')) || [];
     const clearBtn = document.getElementById('clear-list');
 
     if (savedMovies.length > 0) {
-        watchlistContainer.innerHTML = ''; // Remove "Empty" placeholder
+        watchlistContainer.innerHTML = '';
         
         savedMovies.forEach(movie => {
             // Add the movie card to the UI
@@ -229,10 +215,8 @@ if (watchlistContainer) {
         });
     }
 
-    // 2. Fixed Clear All Logic
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-            // Check the storage DIRECTLY right now (don't trust the variable from page load)
             const currentList = JSON.parse(localStorage.getItem('wat2watch_list')) || [];
             
             if (currentList.length === 0) {
@@ -241,18 +225,14 @@ if (watchlistContainer) {
             }
 
             if(confirm("Are you sure you want to clear your entire list?")) {
-                // Force it to be an empty array
                 localStorage.setItem('wat2watch_list', '[]');
-                // Reload the page to show the empty state
                 location.reload();
             }
         });
     }
 }
 
-/* =========================================
-   PART 5: LOGIN LOGIC (Global)
-   ========================================= */
+/*PART 5: LOGIN LOGIC (Global)*/
 const loginModal = document.getElementById('login-modal');
 if (loginModal) {
     const userMenuBtn = document.querySelector('.user-menu'); 
