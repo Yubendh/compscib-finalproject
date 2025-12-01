@@ -21,12 +21,6 @@ def home():
 
 @app.route('/api/recommend', methods=['GET'])
 def recommend_movies():
-    """
-    1. Receives search filters from Frontend.
-    2. Fetches data from OMDb API.
-    3. Processes data using Pandas.
-    4. Returns sorted JSON.
-    """
     #Get parameters from the frontend URL
     keyword = request.args.get('q', 'movie')
     genre_filter = request.args.get('genre', '').lower()
